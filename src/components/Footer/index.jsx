@@ -7,7 +7,8 @@ function Footer() {
             color: 'white', 
             opacity: '0.5',
             display: 'flex',
-            justifyContent: 'center'}}
+            justifyContent: 'center',
+            marginTop: '1rem'}}
         >
             Quoc Viet @ DevChallenges.io
         </div>

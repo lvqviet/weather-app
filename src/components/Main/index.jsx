@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import WeatherStats from '../WeatherStats';
 import WeatherToday from '../WeatherToday';
 import styled from 'styled-components';
+import Loading from '../Loading';
 
 export const WeatherContext = React.createContext();
 
@@ -53,14 +54,26 @@ function Main() {
       .catch(console.error);
   };
 
+  const getLattLong = (loc) => {
+    fetch(
+      `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?lattlong=${loc}`,
+      {
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        getWeather(data[0].woeid);
+      })
+      .catch(console.error);
+  };
+
   useEffect(() => {
-    // navigator.geolocation.getCurrentPosition(function(position) {
-      
-    //   console.log("Latitude is :", position.coords.latitude.toPrecision(5));
-    //   console.log("Longitude is :", position.coords.longitude.toPrecision(5));
-    //   getWeather(`${position.coords.latitude.toPrecision(5)},${position.coords.longitude.toPrecision(5)}`);
-    // });
-    getWeather("1252431");
+      navigator.geolocation.getCurrentPosition(function(position) {
+        getLattLong(`${position.coords.latitude.toPrecision(5)},${position.coords.longitude.toPrecision(5)}`);
+      });
   }, []);
 
   const convertToFahrenheit = (celsius) => {
@@ -69,7 +82,7 @@ function Main() {
 
     return (
     loading ? (
-        <h3>loading</h3>
+        <Loading />
       ) : (
         <MainWrapper>
           <WeatherContext.Provider

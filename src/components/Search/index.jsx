@@ -18,13 +18,19 @@ const Button = styled.button`
     color: white;
     cursor: pointer;
     border: none;
+
+    :hover {
+        background-color: #6E707A;
+    }
 `;
 
-function Search(props) {
+function Search({ event }) {
+
+
     return (
         <SearchWrapper>
-                <Button>Search for places</Button>
-                <MyLocationIcon fontSize='large'/>
+                <Button onClick={event}>Search for places</Button>
+                <MyLocationIcon style={{backgroundColor: '#6E707A', padding: '0.2rem', borderRadius: '50px'}}/>
         </SearchWrapper>
     );
 }

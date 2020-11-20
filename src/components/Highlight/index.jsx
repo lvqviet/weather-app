@@ -9,6 +9,7 @@ align-items: center;
 width: 22rem;
 height: 8rem;
 padding: 1rem;
+margin-top: 1rem;
 color: white;
 background-color: #1E213A;
 `;

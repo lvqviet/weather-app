@@ -10,6 +10,7 @@ const Wrapper = styled.div`
     width: 22rem;
     height: 10rem;
     padding: 1rem;
+    margin-bottom: 1rem;
     color: white;
     background-color: #1E213A;
 

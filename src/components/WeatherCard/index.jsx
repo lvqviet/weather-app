@@ -4,7 +4,7 @@ import { WeatherContext } from '../Main';
 import styled from 'styled-components';
 
 const CardWrapper = styled.div`
-    margin: 0;
+    margin: 2px 2px;
     display: flex;
     flex-direction: column;
     padding: 18px 10px;
@@ -51,9 +51,7 @@ function WeatherCard({ weatherState }) {
             <div
                 style={{
                 display: "flex",
-                justifyContent: "space-between",
-                padding: '0 1rem'
-                }}
+                justifyContent: "space-around"}}
             >
                 <>
                 {celsius ? (

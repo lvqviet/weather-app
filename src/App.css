@@ -1,13 +1,9 @@
-body {
-  overflow-y: hidden;
-}
-
 .App {
   /* text-align: center; */
   position: relative;
   font-family: Raleway;
 }
 
-.App::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
 }

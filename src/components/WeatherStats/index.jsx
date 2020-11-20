@@ -12,11 +12,17 @@ const StatsWrapper = styled.div`
     height: 100vh;
     overflow-y: scroll;
     background-color: #100e1d;
-    padding: 1rem 8rem;
+    padding: 0 8rem;
 
-    ::-webkit-scrollbar {
-        display: none;
-    }
+    @media (max-width: 1440px) {
+        padding: 40px 80px 0px 80px;
+      }
+      @media (max-width: 1024px) {
+        height: max-content;
+      }
+      @media (max-width: 768px) {
+        padding: 40px 9px;
+      }
 `;
 
 const TempUnit = styled.button`
@@ -39,12 +45,22 @@ const TempUnit = styled.button`
 const UpcomingWeather = styled.div`
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media (max-width: 1024px) {
+        justify-content: center;
+      }
 `;
 
 const WeatherHighLights = styled.div`
 display: flex;
 justify-content: space-between;
-margin-bottom: 1.5rem;
+
+flex-wrap: wrap;
+
+@media (max-width: 1024px) {
+    justify-content: center;
+  }
 `;
 
 function WeatherStats({ weather, setUnits }) {
