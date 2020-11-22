@@ -18,7 +18,7 @@ function Main() {
   const [celsius, setUnits] = useState(true);
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState([]);
-  const [locations, setLocations] = useState([]);
+
 
   const getWeather = (locId) => {
     setLoading(true);
@@ -38,21 +38,7 @@ function Main() {
       .catch(console.error);
   };
 
-  const getLocId = (loc) => {
-    fetch(
-      `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?query=${loc}`,
-      {
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setLocations(data);
-      })
-      .catch(console.error);
-  };
+
 
   const getLattLong = (loc) => {
     fetch(
@@ -74,6 +60,7 @@ function Main() {
       navigator.geolocation.getCurrentPosition(function(position) {
         getLattLong(`${position.coords.latitude.toPrecision(5)},${position.coords.longitude.toPrecision(5)}`);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const convertToFahrenheit = (celsius) => {
@@ -88,8 +75,6 @@ function Main() {
           <WeatherContext.Provider
             value={{
               celsius,
-              locations,
-              getLocId,
               getWeather,
               convertToFahrenheit,
             }}
@@ -97,10 +82,8 @@ function Main() {
             <WeatherToday weather={weather} />
             <WeatherStats weather={weather} setUnits={setUnits} />
           </WeatherContext.Provider>
-          
         </MainWrapper>
       )
-  
     );
 }
 

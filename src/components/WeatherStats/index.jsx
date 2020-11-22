@@ -14,6 +14,11 @@ const StatsWrapper = styled.div`
     background-color: #100e1d;
     padding: 0 8rem;
 
+    #active {
+        color: #110e3c;
+        background: #e7e7eb;
+    }
+
     @media (max-width: 1440px) {
         padding: 40px 80px 0px 80px;
       }
@@ -68,8 +73,25 @@ function WeatherStats({ weather, setUnits }) {
     return (
         <StatsWrapper>
             <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: '1rem' }}>
-                <TempUnit onClick={e => setUnits(true)}>&#176;C</TempUnit>
-                <TempUnit onClick={e => setUnits(false)}>&#176;F</TempUnit>
+                <TempUnit 
+                    id='active'
+                    onClick={
+                        e => {setUnits(true);
+                        e.target.id = 'active';
+                        e.target.nextElementSibling.id = '';
+                    }}
+                >
+                    &#176;C
+                </TempUnit>
+                <TempUnit 
+                    onClick={
+                        e => {setUnits(false)
+                        e.target.id = 'active';
+                        e.target.previousElementSibling.id = '';
+                    }}
+                >
+                    &#176;F
+                </TempUnit>
             </div>
             <UpcomingWeather>
                 {weather.consolidated_weather.map((weatherState, i) =>

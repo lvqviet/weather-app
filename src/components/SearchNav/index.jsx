@@ -36,9 +36,89 @@ const SearchBtn = styled.button`
     cursor: pointer;
 `;
 
+const Loading = styled.div`
+    margin: auto;
+    background: transparent;
+
+.loading-dot {
+    float: left;
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+    background: white;
+    border-radius: 50%;
+  
+    opacity: 0;
+    box-shadow: 0 0 2px black;
+    animation: loadingFade 1s infinite;
+}
+
+.loading-dot:nth-child(1) {
+    -webkit-animation-delay: 0s;
+    -moz-animation-delay: 0s;
+    animation-delay: 0s;
+}
+
+.loading-dot:nth-child(2) {
+    -webkit-animation-delay: 0.1s;
+    -moz-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+}
+
+.loading-dot:nth-child(3) {
+    -webkit-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(4) {
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+
+@-webkit-keyframes loadingFade {
+    0% { opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+@-moz-keyframes loadingFade {
+    0% { opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+@keyframes loadingFade {
+    0% { opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+`;
+
 function SearchNav({ navigation }) {
-    const {getLocId, getWeather, locations} = useContext(WeatherContext);
+    
+    const {getWeather} = useContext(WeatherContext);
     const [val, setVal] = useState("");
+    const [locations, setLocations] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const getLocId = (loc) => {
+        fetch(
+          `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?query=${loc}`,
+          {
+            headers: {
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setLocations(data);
+            setLoading(false);
+          })
+          .catch(console.error);
+      };
 
     return (
         <Wrapper id='wrapper'>
@@ -59,9 +139,27 @@ function SearchNav({ navigation }) {
                     value={val}
                     onChange={(e) => setVal(e.target.value)}
                 />
-                <SearchBtn onClick={() => getLocId(val)}>Search</SearchBtn>
+                <SearchBtn 
+                    onClick={
+                        () => {getLocId(val)
+                        setLoading(true)
+                    }}
+                >
+                    Search
+                </SearchBtn>
             </div>
-            <div 
+            <>
+                {loading ? 
+                (
+                    <Loading>
+                        <div className="loading-dot"></div>
+                        <div className="loading-dot"></div>
+                        <div className="loading-dot"></div>
+                        <div className="loading-dot"></div>
+                    </Loading>
+                ) :
+                (
+                    <div 
                 style={{display: 'flex', 
                         flexDirection: 'column', 
                         padding: '1rem', 
@@ -80,6 +178,10 @@ function SearchNav({ navigation }) {
                     ))
                 }
             </div>
+                )
+                }
+            </>
+            
             
         </Wrapper>
     );
