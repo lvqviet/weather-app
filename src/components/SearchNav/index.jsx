@@ -31,6 +31,7 @@ const SearchBtn = styled.button`
     outline: 0;
     color: #E7E7EB;
     border: 1px solid #3C47E9;
+    border-radius: 2px;
     padding: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
@@ -132,22 +133,27 @@ function SearchNav({ navigation }) {
                     style={{cursor: 'pointer'}}
                 />
             </div>
+            <form 
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    getLocId(val)
+                    setLoading(true);
+                }}
+            >
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <SearchIcon />
                 <SearchBar 
+                    autoFocus
                     placeholder='Search location'
                     value={val}
                     onChange={(e) => setVal(e.target.value)}
                 />
-                <SearchBtn 
-                    onClick={
-                        () => {getLocId(val)
-                        setLoading(true)
-                    }}
-                >
+                <SearchBtn type="submit">
                     Search
                 </SearchBtn>
             </div>
+            </form>
+
             <>
                 {loading ? 
                 (

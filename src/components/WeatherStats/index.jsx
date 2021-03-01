@@ -5,6 +5,8 @@ import WindStatus from '../WindStatus';
 import Humidity from '../Humidity';
 import Highlight from '../Highlight';
 import Footer from '../Footer';
+import { WeatherContext } from '../Main';
+import { useContext } from 'react';
 
 const StatsWrapper = styled.div`
     display: flex;
@@ -69,12 +71,13 @@ flex-wrap: wrap;
 `;
 
 function WeatherStats({ weather, setUnits }) {
+    const { celsius } =  useContext(WeatherContext);
 
     return (
         <StatsWrapper>
             <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: '1rem' }}>
                 <TempUnit 
-                    id='active'
+                    id = {celsius ? "active" : ""}
                     onClick={
                         e => {setUnits(true);
                         e.target.id = 'active';
@@ -84,6 +87,7 @@ function WeatherStats({ weather, setUnits }) {
                     &#176;C
                 </TempUnit>
                 <TempUnit 
+                    id = {celsius ? "" : "active"}
                     onClick={
                         e => {setUnits(false)
                         e.target.id = 'active';

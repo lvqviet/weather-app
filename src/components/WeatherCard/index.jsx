@@ -34,7 +34,6 @@ const CardWrapper = styled.div`
 function WeatherCard({ weatherState }) {
     const {celsius, convertToFahrenheit } = useContext(WeatherContext);
     let date = new Date(weatherState.applicable_date).toUTCString();
-
     
     return (
         <CardWrapper>
