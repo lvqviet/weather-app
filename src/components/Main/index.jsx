@@ -23,7 +23,7 @@ function Main() {
   const getWeather = (locId) => {
     setLoading(true);
     fetch(
-      `https://www.metaweather.com/api/location/${locId}`,
+      `https://api.allorigins.win/raw?url=https://www.metaweather.com/api/location/${locId}`,
       {
         headers: {
           "X-Requested-With": "XMLHttpRequest",
@@ -42,7 +42,7 @@ function Main() {
 
   const getLattLong = (loc) => {
     fetch(
-      `https://www.metaweather.com/api/location/search/?lattlong=${loc}`,
+      `https://api.allorigins.win/raw?url=https://www.metaweather.com/api/location/search/?lattlong=${loc}`,
       {
         headers: {
           "X-Requested-With": "XMLHttpRequest",

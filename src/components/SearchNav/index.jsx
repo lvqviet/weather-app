@@ -106,7 +106,7 @@ function SearchNav({ navigation }) {
 
     const getLocId = (loc) => {
         fetch(
-          `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?query=${loc}`,
+          `https://api.allorigins.win/raw?url=https://www.metaweather.com/api/location/search/?query=${loc}`,
           {
             headers: {
               "X-Requested-With": "XMLHttpRequest",
